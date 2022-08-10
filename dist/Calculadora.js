@@ -1,27 +1,27 @@
 export class Calculadora {
-    constructor(calculo) {
-        this.primeiroValor = calculo.primeiroValor;
-        this.segundoValor = calculo.segundoValor;
-        this.operacao = calculo.operador;
+    constructor() {
+        this.historicoOperacoes = [];
     }
-    calcular() {
+    calcular(calculo) {
         let resultado = 0;
-        if (this.operacao === "/" && this.segundoValor === 0)
+        if (calculo.operador === "/" && calculo.segundoValor === 0)
             return 0;
-        switch (this.operacao) {
+        switch (calculo.operador) {
             case "+":
-                resultado = this.primeiroValor + this.segundoValor;
+                resultado = calculo.primeiroValor + calculo.segundoValor;
                 break;
             case "-":
-                resultado = this.primeiroValor - this.segundoValor;
+                resultado = calculo.primeiroValor - calculo.segundoValor;
                 break;
             case "*":
-                resultado = this.primeiroValor * this.segundoValor;
+                resultado = calculo.primeiroValor * calculo.segundoValor;
                 break;
             case "/":
-                resultado = this.primeiroValor / this.segundoValor;
+                resultado = calculo.primeiroValor / calculo.segundoValor;
                 break;
         }
+        const operacao = `${calculo.primeiroValor} ${calculo.operador} ${calculo.segundoValor} = ${resultado}`;
+        this.historicoOperacoes.push(operacao);
         return resultado;
     }
 }

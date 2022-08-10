@@ -1,34 +1,36 @@
 import { Calculo } from "./Calculo.type.js";
 export class Calculadora {
-  primeiroValor: number;
-  segundoValor: number;
-  operacao: string;
+  historicoOperacoes: string[];
 
-  constructor(calculo: Calculo) {
-    this.primeiroValor = calculo.primeiroValor;
-    this.segundoValor = calculo.segundoValor;
-    this.operacao = calculo.operador;
+  constructor() {
+    this.historicoOperacoes = [];
   }
 
-  calcular(): number {
+  calcular(calculo: Calculo): number {
     let resultado = 0;
 
-    if (this.operacao === "/" && this.segundoValor === 0) return 0;
+    if (calculo.operador === "/" && calculo.segundoValor === 0) return 0;
 
-    switch (this.operacao) {
+    switch (calculo.operador) {
       case "+":
-        resultado = this.primeiroValor + this.segundoValor;
+        resultado = calculo.primeiroValor + calculo.segundoValor;
         break;
       case "-":
-        resultado = this.primeiroValor - this.segundoValor;
+        resultado = calculo.primeiroValor - calculo.segundoValor;
         break;
       case "*":
-        resultado = this.primeiroValor * this.segundoValor;
+        resultado = calculo.primeiroValor * calculo.segundoValor;
         break;
       case "/":
-        resultado = this.primeiroValor / this.segundoValor;
+        resultado = calculo.primeiroValor / calculo.segundoValor;
         break;
     }
+
+    const operacao: string = 
+    `${calculo.primeiroValor} ${calculo.operador} ${calculo.segundoValor} = ${resultado}`;
+
+    this.historicoOperacoes.push(operacao);
+
     return resultado;
   }
 }
