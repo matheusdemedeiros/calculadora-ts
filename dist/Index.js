@@ -6,6 +6,7 @@ const divHistorico = document.getElementById("historico");
 const calculadora = new Calculadora();
 const btnCalcular = document.getElementById("btnCalcular");
 const txtResultado = document.getElementById("txtResultado");
+const btnMassaDados = document.getElementById("btnMassaDados");
 function calcular() {
     const calculo = {
         primeiroValor: Number(txtPrimeiroValor.value),
@@ -36,4 +37,23 @@ function limparHistoricoOperacoes() {
         divHistorico.removeChild(divHistorico.firstChild);
     }
 }
+function gerarValores(qtdValores) {
+    let valores = [];
+    for (let i = 0; i < qtdValores; i++) {
+        valores.push(i);
+    }
+    return valores;
+}
+function realizaCalculosAutomaticos() {
+    let valores = gerarValores(10);
+    for (let i = 0; i < valores.length; i++) {
+        preencherInputsComValores(valores[i]);
+        btnCalcular.click();
+    }
+}
+function preencherInputsComValores(valor) {
+    txtPrimeiroValor.value = String(valor);
+    txtSegundoValor.value = String(valor);
+}
 btnCalcular.addEventListener("click", calcular);
+btnMassaDados.addEventListener("click", realizaCalculosAutomaticos);
