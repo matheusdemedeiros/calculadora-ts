@@ -5,30 +5,71 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script type="module" src="./dist/Index.js" defer></script>
-    <link rel="stylesheet" href="style.css" />
+    <!-- <link rel="stylesheet" href="style.css" /> -->
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+      crossorigin="anonymous"
+      defer
+    ></script>
 
     <title>Calculadora</title>
   </head>
-  <body>
-    <div class="container">
-      <div class="linha">
-        <div class="coluna">
-          <h1 id="Titulo">Calculadora tabajara</h1>
-          <label for="primeiroValor">Primeiro valor</label>
-          <input id="txtPrimeiroValor" class="line" type="number" />
-          <select id="operacoes" class="line">
-            <option value="+">Soma</option>
-            <option value="-">Subtração</option>
-            <option value="*">Multiplicação</option>
-            <option value="/">Divisão</option>
-          </select>
-          <label for="segundoValor">Segundo valor</label>
-          <input id="txtSegundoValor" class="line" type="number" />
-          <button id="btnCalcular" type="button">Calcular</button>
-          <h3 id="txtResultado">0</h3>
+  <body class="vh-100 d-flex align-items-center">
+    <div class="container p-5">
+      <div class="row justify-content-center align-items-center">
+        <div class="col text-center">
+          <h1 class="fw-bolder">Calculadora tabajara</h1>
+
+          <div class="form-group mb-3">
+            <label class="form-label fs-5" for="primeiroValor"
+              >Primeiro valor</label
+            >
+            <input
+              id="txtPrimeiroValor"
+              type="number"
+              class="form-control text-center"
+            />
+          </div>
+
+          <div class="form-group mb-3">
+            <label class="form-label fs-5" for="operacoes">Operações</label>
+            <select id="operacoes" class="form-select text-center">
+              <option value="+">+</option>
+              <option value="-">-</option>
+              <option value="*">*</option>
+              <option value="/">/</option>
+            </select>
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="segundoValor" class="form-label fs-5"
+              >Segundo valor</label
+            >
+            <input
+              id="txtSegundoValor"
+              type="number"
+              class="form-control text-center"
+            />
+          </div>
+          <button
+            id="btnCalcular"
+            type="button"
+            class="btn btn-lg btn-primary px-5 mt-3"
+          >
+            Calcular
+          </button>
+          <p id="txtResultado" class="fs-4 mt-5"></p>
         </div>
 
-        <div id="historico" class="coluna historico"></div>
+        <div id="historico" class="d-none col-3 flex-column text-center"></div>
       </div>
     </div>
   </body>

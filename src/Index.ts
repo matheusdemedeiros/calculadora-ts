@@ -20,7 +20,7 @@ const btnCalcular = document.getElementById("btnCalcular") as HTMLButtonElement;
 
 const txtResultado = document.getElementById(
   "txtResultado"
-) as HTMLHeadingElement;
+) as HTMLParagraphElement;
 
 function calcular(): void {
   const calculo: Calculo = {
@@ -42,10 +42,10 @@ function calcular(): void {
 }
 
 function exibirhistorico() {
-  divHistorico.style.display = "flex";
+  divHistorico.classList.remove("d-none")
   calculadora.historicoOperacoes.forEach((operacao: string) => {
     const txtOperacao = document.createElement("h3") as HTMLHeadingElement;
-    txtOperacao.className = "card-historico";
+    txtOperacao.className = "alert alert-primary";
     txtOperacao.innerText = operacao;
     divHistorico.appendChild(txtOperacao);
   });
