@@ -1,5 +1,6 @@
 import { Calculadora } from "./Calculadora.js";
 import { Calculo } from "./Calculo.type.js";
+import { RepositorioLocalStorage } from "./repositorios/repositorioLocalStorage.js";
 
 const txtPrimeiroValor = document.getElementById(
   "txtPrimeiroValor"
@@ -14,8 +15,6 @@ const selectOperacoes = document.getElementById(
 
 const divHistorico = document.getElementById("historico") as HTMLDivElement;
 
-const calculadora = new Calculadora();
-
 const btnCalcular = document.getElementById("btnCalcular") as HTMLButtonElement;
 
 const txtResultado = document.getElementById(
@@ -26,6 +25,14 @@ const btnMassaDados = document.getElementById(
   "btnMassaDados"
 ) as HTMLButtonElement;
 
+const btnLimpar = document.getElementById("btnLimpar") as HTMLButtonElement;
+
+const calculadora = new Calculadora();
+
+const repositorioLocalStorage = new RepositorioLocalStorage();
+
+exibirhistorico();
+
 function calcular(): void {
   const calculo: Calculo = {
     primeiroValor: Number(txtPrimeiroValor.value),
@@ -34,6 +41,8 @@ function calcular(): void {
   };
 
   const resultado = calculadora.calcular(calculo);
+
+  repositorioLocalStorage.inserir(calculadora.historicoOperacoes);
 
   if (calculadora.historicoOperacoes.length === 0) {
     divHistorico.style.display = "none";
@@ -46,7 +55,11 @@ function calcular(): void {
 }
 
 function exibirhistorico() {
-  divHistorico.classList.remove("d-none");
+  calculadora.historicoOperacoes = repositorioLocalStorage.selecionarTodos();
+  if (calculadora.historicoOperacoes.length > 0) {
+    divHistorico.classList.remove("d-none");
+  }
+
   calculadora.historicoOperacoes.forEach((operacao: string) => {
     const txtOperacao = document.createElement("h3") as HTMLHeadingElement;
     txtOperacao.className = "alert alert-primary";
@@ -69,8 +82,7 @@ function gerarValores(qtdValores: number): number[] {
   return valores;
 }
 
-
-function realizaCalculosAutomaticos():void {
+function realizaCalculosAutomaticos(): void {
   let valores = gerarValores(10);
   for (let i = 0; i < valores.length; i++) {
     preencherInputsComValores(valores[i]);
@@ -78,11 +90,15 @@ function realizaCalculosAutomaticos():void {
   }
 }
 
-function preencherInputsComValores(valor: number):void {
-    txtPrimeiroValor.value = String(valor);
-    txtSegundoValor.value = String(valor);
+function preencherInputsComValores(valor: number): void {
+  txtPrimeiroValor.value = String(valor);
+  txtSegundoValor.value = String(valor);
 }
-
 
 btnCalcular.addEventListener("click", calcular);
 btnMassaDados.addEventListener("click", realizaCalculosAutomaticos);
+btnLimpar.addEventListener("click", () => {
+  repositorioLocalStorage.excluir();
+  divHistorico.classList.add("d-none");
+  exibirhistorico();
+});
